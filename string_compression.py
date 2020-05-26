@@ -11,36 +11,35 @@ from typing import List
 class Solution:
     def compress(self, chars: List[str]) -> int:
         cursor = 0
-        count = 1
+        count = 0
 
-        for i in range(1, len(chars)):
-            if chars[i] != chars[cursor]:
-                if count == 1:
-                    cursor += 1
-                    chars[cursor] = chars[i]
-                    count += 1
-                else:
-                    cursor += 1
-                    for digit in str(count):
-                        chars[cursor] = digit
-                        cursor += 1
-                    chars[cursor] = chars[i]
-                    count = 1
-            elif i == len(chars) - 1:
+        for idx, _ in enumerate(chars):
+            if chars[idx] == chars[cursor]:
+                count +=1
+            elif count == 1:
                 cursor += 1
-                # count += 1
+                chars[cursor] = chars[idx]
+            else:
+                cursor += 1
                 for digit in str(count):
                     chars[cursor] = digit
                     cursor += 1
-                return cursor
-            else:
-                count += 1
+                count = 1
+                chars[cursor] = chars[idx]
 
-        return cursor + 2
+        if count > 1:
+            for digit in str(count):
+                cursor += 1
+                chars[cursor] = digit
+        else:
+            chars[cursor] = chars[-1]
 
-        
+        return cursor + 1
+
+
+# chars = ["a", "b", "c", "d"]
 # chars = ["a", "a", "a", "b", "c"]
-chars = ["a", "a", "b", "b", "c", "c", "c"]
+# chars = ["a", "a", "b", "b", "c", "c", "c"]
 # chars = ["a", "a", "a", "c", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b","b","b"]
 print(chars)
 
