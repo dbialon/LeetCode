@@ -27,7 +27,7 @@ class Solution:
         # initialize N
         N = []
 
-        # N = M[:] makes a copy of M but ten each sublist of N is 
+        # N = M[:] makes a copy of M but then each sublist of N is 
         # the same object as sublists of M
 
         # copy each sublist from M to N
