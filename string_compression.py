@@ -14,12 +14,15 @@ class Solution:
         count = 0
 
         for idx, _ in enumerate(chars):
+            # same as previous so just increase count by 1
             if chars[idx] == chars[cursor]:
                 count +=1
+            # different than previous but count = 1 so don't record it
             elif count == 1:
                 cursor += 1
                 chars[cursor] = chars[idx]
             else:
+                # different than previous and count > 1 so record it
                 cursor += 1
                 for digit in str(count):
                     chars[cursor] = digit
@@ -27,23 +30,27 @@ class Solution:
                 count = 1
                 chars[cursor] = chars[idx]
 
+        # reached the end of list and count > 1 so need to record it
         if count > 1:
             for digit in str(count):
                 cursor += 1
                 chars[cursor] = digit
         else:
+            # special case: char with count = 1 at the end of list
             chars[cursor] = chars[-1]
 
         return cursor + 1
 
 
+####################
+### TESTING ONLY ###
+####################
+
 # chars = ["a", "b", "c", "d"]
 # chars = ["a", "a", "a", "b", "c"]
 # chars = ["a", "a", "b", "b", "c", "c", "c"]
-# chars = ["a", "a", "a", "c", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b","b","b"]
+chars = ["a", "a", "a", "c", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b","b","b"]
 print(chars)
 
-sol = Solution()
-print(chars[:sol.compress(chars)])
-
-# YS07 TGY
+solution = Solution().compress(chars)
+print(chars[:solution])
