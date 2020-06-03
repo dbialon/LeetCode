@@ -15,11 +15,31 @@ class Solution:
     def sumEvenAfterQueries(self, A: List[int], queries: List[List[int]]) -> List[int]:
         answer = [0 for _ in range(len(queries))]
 
+        # Holds sum of all the evens in A
+        A_sum_evens = 0
+
+        # Iterate over A to add any evens to the sum
+        for number in A:
+            if number & 1 == 0:
+                A_sum_evens += number
+
+        # Iterate over queries list
         for idx, query in enumerate(queries):
+            # Check if the 'queried' item is even
+            if A[query[1]] & 1 == 0:
+                # Subtract it from the sum if so
+                A_sum_evens -= A[query[1]]
+            
+            # Update A
             A[query[1]] += query[0]
-            for number in A:
-                if number & 1 == 0:
-                    answer[idx] += number
+            
+            # Check if the updated item is even
+            if A[query[1]] & 1 == 0:
+                # Add it to the sum if so
+                A_sum_evens += A[query[1]] 
+
+            # Update answer[idx] with sum of evens in A
+            answer[idx] += A_sum_evens
 
         return answer
 
@@ -28,7 +48,6 @@ class Solution:
 ### TESTING ONLY ###
 ####################
 
-# Input: 
 A = [1,2,3,4]
 queries = [[1,0], [-3,1], [-4,0], [2,3]]
 # Output: [8,6,2,4]
