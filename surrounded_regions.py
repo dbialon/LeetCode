@@ -22,12 +22,13 @@ class Solution:
         self.max_x = len(board) - 1
         self.max_y = len(board[0]) - 1
 
-
-        # check edges for 'O's and and replace them with 'P' (protected)
-        # check neighbours of protected 'P's and protect them
+        # check edges for 'O's and replace them with 'P' (protected)
+        # as any 'O' on the edge can't be surrounded!
+        # the idea is to spread that protection to 'O's inside the board
+        # if possible; check neighbours of protected 'P's and protect them
         # if they are 'O's
-        for row, _ in enumerate(board):
-            for col, item in enumerate(board[row]):
+        for row, _ in enumerate(self.board):
+            for col, item in enumerate(self.board[row]):
                 if row == 0 and item == 'O':
                     self.board[0][col] = 'P'
                     self.check_neighbours(0, col)
@@ -41,10 +42,10 @@ class Solution:
                     self.board[row][-1] = 'P'
                     self.check_neighbours(row, self.max_y)
 
-        # iterate through entire board and replace 'P's with 'O's
+        # iterate over entire board and replace 'P's with 'O's
         # and unprotected 'O's with 'X's
-        for row, _ in enumerate(board):
-            for col, item in enumerate(board[row]):
+        for row, _ in enumerate(self.board):
+            for col, item in enumerate(self.board[row]):
                 if item == 'P':
                     self.board[row][col] = 'O'
                 elif item == 'O':
@@ -54,6 +55,7 @@ class Solution:
     def check_neighbours(self, x, y):
         # a and x represent rows
         # b and y represent cols
+        # coords of neighbours of (x, y)
         self.map_x_y = ((x-1, y), (x, y-1), (x, y+1), (x+1, y))
 
         for a, b in self.map_x_y:
