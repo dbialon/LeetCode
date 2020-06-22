@@ -10,7 +10,7 @@ def singleNumber1(nums):
 		# XOR operator
 		result ^= num
 
-	return(result)
+	return result
 
 def singleNumber2(nums):
 	freq = dict()
