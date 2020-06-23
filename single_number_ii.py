@@ -1,5 +1,4 @@
-# https://leetcode.com/explore/challenge/card/june-leetcoding-challenge/
-# 542/week-4-june-22nd-june-28th/3368/
+# https://leetcode.com/problems/single-number-ii/
 
 # Given a non-empty array of integers, every element appears three times
 # except for one, which appears exactly once. Find that single one.
