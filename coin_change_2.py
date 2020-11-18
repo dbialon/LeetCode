@@ -28,42 +28,24 @@ from typing import List
 
 
 class Solution:
-    combinations = {0: 0}    
+
+    def __init__(self):
+        self.combinations = {0: 1}
+
     def change(self, amount: int, coins: List[int]) -> int:
 
-        for idx, coin in enumerate(coins):
-            self.combinations[coin] = 1 + self.estimate_change(coin, coins[:idx])
-
-        print(self.combinations)
-
-        return self.estimate_change(amount, coins)
-
+        for i in range(1, amount+1):
+            self.combinations[i] = 0
         
-    def estimate_change(self, amount: int, coins: List[int]) -> int:
-        if amount in self.combinations:
-            return self.combinations[amount]
-        
-        if amount < 0:
-            return 0
-
-        result = 0
         for coin in coins:
-            print(coin)
-            result += self.estimate_change(amount - coin, coins)
+            for i in range(coin, amount+1):
+                self.combinations[i] += self.combinations[i-coin]
 
-        self.combinations[amount] = result
-
-        return result
+        return self.combinations[amount]
 
 
-amount = 20
+amount = 29
 coins = [1, 2, 5]
-# 52
-# 511
-# 2221
-# 22111
-# 211111
-# 1111111
 
 # amount = 3
 # coins = [2]
@@ -73,4 +55,3 @@ coins = [1, 2, 5]
 
 solution = Solution()
 print(solution.change(amount, coins))
-print(solution.combinations)
